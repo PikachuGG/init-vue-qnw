@@ -1,16 +1,23 @@
 <template>
   <div class="home">
-    <page-top></page-top>
+    <page-top>
+      <span class="iconfont icon-fanhui" slot="page-tleft"></span>
+      <input type="text" class="page-tinput" slot="page-tcenter">
+      <span class="iconfont icon-wode " slot="page-tright"></span>
+    </page-top>
+    <page-swiper></page-swiper>
       home
     </div>
 </template>
 
 <script>
 import PageTop from '@/components/PageTop'
+import PageSwiper from '@/components/PageSwiper'
 export default {
   name: 'home',
   components: {
-    PageTop
+    PageTop,
+    PageSwiper
   },
   props: {},
   data () {
@@ -45,5 +52,19 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
+.home{
+  height:100%;
+  .iconfont{
+    font-size:px2rem(60);
+    line-height:px2rem(90);
+  }
+  .page-tinput{
+    line-height: px2rem(60);
+    height:px2rem(60);
+    background: #fff;
+    margin-top:px2rem(15);
+    padding-left:px2rem(20);
+    width: 100%;
+  }
+}
 </style>

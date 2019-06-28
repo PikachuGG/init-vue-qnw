@@ -1,5 +1,9 @@
 <template>
-  <div class="page-top">page-top</div>
+  <div class="page-top">
+    <div class="page-tleft"><slot name="page-tleft"></slot></div>
+    <div class="page-tcenter"><slot name="page-tcenter"></slot></div>
+    <div class="page-tright"><slot name="page-tright"></slot></div>
+  </div>
 </template>
 
 <script>
@@ -39,5 +43,26 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
+.page-top{
+  background: $base-orange;
+  height: px2rem(90);
+  color: #fff;
+  display: flex;
+  .page-tleft{
+    width: px2rem(120);
+    height: px2rem(90);
+    padding-left: px2rem(10);
+    text-align: left;
+  }
+  .page-tcenter{
+    flex: 1;
+    height: px2rem(90);
+  }
+  .page-tright{
+    width: px2rem(120);
+    height: px2rem(90);
+    padding-right: px2rem(10);
+    text-align: right;
+  }
+}
 </style>
