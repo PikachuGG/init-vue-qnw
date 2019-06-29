@@ -1,28 +1,20 @@
 <template>
-  <div class="home">
-    <page-top>
-      <span class="iconfont icon-fanhui" slot="page-tleft"></span>
-      <input type="text" class="page-tinput" slot="page-tcenter">
-      <span class="iconfont icon-wode " slot="page-tright"></span>
-    </page-top>
-    <page-swiper></page-swiper>
-    <page-icon></page-icon>
-      home
-    </div>
+  <div class="img-text">
+      <dir class="img-box">
+        <img :src="imgUrl">
+      </dir>
+      <div class="text-box">{{text}}</div>
+  </div>
 </template>
 
 <script>
-import PageTop from '@/components/PageTop'
-import PageSwiper from '@/components/PageSwiper'
-import PageIcon from '@/components/PageIcon'
 export default {
-  name: 'home',
-  components: {
-    PageTop,
-    PageSwiper,
-    PageIcon
-  },
-  props: {},
+  name: 'img-text',
+  components: {},
+  props: [
+    'imgUrl',
+    'text'
+  ],
   data () {
     return {
     }
@@ -55,19 +47,22 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.home{
-  height:100%;
-  .iconfont{
-    font-size:px2rem(60);
-    line-height:px2rem(90);
-  }
-  .page-tinput{
-    line-height: px2rem(60);
-    height:px2rem(60);
-    background: #fff;
-    margin-top:px2rem(15);
-    padding-left:px2rem(20);
+.img-text{
+  .img-box{
+    overflow: hidden;
     width: 100%;
+    background: #f00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+      width: 80%;
+    }
+  }
+  .text-box{
+    text-align: center;
+    line-height: px2rem(56.3);
+    font-size: px2rem(20);
   }
 }
 </style>
