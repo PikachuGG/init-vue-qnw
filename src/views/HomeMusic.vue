@@ -1,23 +1,11 @@
 <template>
-  <div class="home">
-    <page-top>
-      <span class="iconfont icon-menu-fill" slot="page-tleft"></span>
-      <!-- <input type="text" class="page-tinput" slot="page-tcenter"> -->
-      <span class="iconfont icon-search" slot="page-tright"></span>
-    </page-top>
-    <home-tab></home-tab>
-    </div>
+  <div class="home-music">home-music</div>
 </template>
 
 <script>
-import PageTop from '@/components/PageTop'
-import HomeTab from '@/components/HomeTab'
 export default {
-  name: 'home',
-  components: {
-    PageTop,
-    HomeTab
-  },
+  name: 'home-music',
+  components: {},
   props: {},
   data () {
     return {
@@ -51,19 +39,4 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.home{
-  height:100%;
-  .iconfont{
-    font-size:px2rem(60);
-    line-height:px2rem(90);
-  }
-  .page-tinput{
-    line-height: px2rem(60);
-    height:px2rem(60);
-    background: #fff;
-    margin-top:px2rem(15);
-    padding-left:px2rem(20);
-    width: 100%;
-  }
-}
 </style>

@@ -6,14 +6,11 @@
     @someSwiperEvent="callback"
     >
       <!-- slides -->
-      <swiper-slide>
-        <img src="http://source.qunarzz.com/site/images/wns/20190620_qunar_dujia_homepage_3.jpg" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <img src="http://source.qunarzz.com/site/images/wns/20190621_qunar_dujia_homepage_2.jpg" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <img src="http://source.qunarzz.com/site/images/wns/20190531_dujia_homepage_top_banner_4.jpg" alt="">
+      <swiper-slide v-for="(item, index) of imgUrl" :key="index - item.id">
+        <div class="img-box">
+          <img :src="item.url">
+          <div class="img-type">{{item.type}}</div>
+        </div>
       </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
@@ -36,6 +33,19 @@ export default {
   props: {},
   data () {
     return {
+      imgUrl: [{
+        id: 1,
+        url: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20196/b421363bbbb9184deacb4247eeea7485.jpg_750x200_12b42643.jpg',
+        type: '广告1'
+      }, {
+        id: 2,
+        url: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20196/818f6cc784ae6669b74bbbb255414a53.jpg_750x200_66ca5873.jpg',
+        type: '广告2'
+      }, {
+        id: 3,
+        url: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20193/87a224d0349d94a11e97f31aa1aba4f5.jpg_750x200_1f78af87.jpg',
+        type: '广告3'
+      }],
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
@@ -82,10 +92,32 @@ export default {
 .page-swiper{
   width:100%;
   height:0;
-  padding-bottom: 25.6%;
+  padding:0 px2rem(8) 25.6%;
+  background: linear-gradient(to top,#fff 0,#fff 35%,$base-orange 35%,$base-orange 100%,);
   .swiper-slide{
-    img{
-      width:100%;
+    padding: 0 px2rem(8);
+    .img-box{
+      position: relative;
+      border-radius: px2rem(16);
+      overflow: hidden;
+      img{
+        width:100%;
+      }
+      .img-type{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        z-index: 99;
+        padding: 0 px2rem(8);
+        height: px2rem(40);
+        line-height: px2rem(40);
+        font-size: px2rem(26);
+        font-family: "微软雅黑";
+        text-align: center;
+        border-top-right-radius:px2rem(16);
+      }
     }
   }
   /deep/

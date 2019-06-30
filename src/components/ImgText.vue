@@ -51,18 +51,17 @@ export default {
   .img-box{
     overflow: hidden;
     width: 100%;
-    background: #f00;
     display: flex;
     align-items: center;
     justify-content: center;
     img{
-      width: 80%;
+      width: 60%;
     }
   }
   .text-box{
     text-align: center;
     line-height: px2rem(56.3);
-    font-size: px2rem(20);
+    font-size: px2rem(26);
   }
 }
 </style>

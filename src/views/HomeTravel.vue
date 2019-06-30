@@ -1,26 +1,38 @@
 <template>
-  <div class="home">
-    <page-top>
-      <span class="iconfont icon-menu-fill" slot="page-tleft"></span>
-      <!-- <input type="text" class="page-tinput" slot="page-tcenter"> -->
-      <span class="iconfont icon-search" slot="page-tright"></span>
-    </page-top>
-    <home-tab></home-tab>
-    </div>
+  <div class="home-travel">
+    <page-swiper></page-swiper>
+    <page-icon></page-icon>
+    <page-title
+    :titleUrl="titleList[0].url"
+    :titleInfo="titleList[0].title"
+    >
+      <span class="iconfont icon-search" slot="title-left"></span>
+      <span class="iconfont icon-search" slot="title-right"></span>
+    </page-title>
+  </div>
 </template>
 
 <script>
-import PageTop from '@/components/PageTop'
-import HomeTab from '@/components/HomeTab'
+import PageSwiper from '@/components/PageSwiper'
+import PageIcon from '@/components/PageIcon'
+import PageTitle from '@/components/PageTitle'
 export default {
-  name: 'home',
+  name: 'home-travel',
   components: {
-    PageTop,
-    HomeTab
+    PageSwiper,
+    PageIcon,
+    PageTitle
   },
   props: {},
   data () {
     return {
+      titleList: [{
+        title: '本周热门',
+        url: 'https://www.baidu.com/'
+      }, {
+        title: '猜你喜欢',
+        url: 'https://www.baidu.com/'
+      }]
     }
   },
   // 监听属性 类似于data概念
@@ -51,19 +63,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.home{
-  height:100%;
+.home-travel{
   .iconfont{
-    font-size:px2rem(60);
-    line-height:px2rem(90);
-  }
-  .page-tinput{
-    line-height: px2rem(60);
-    height:px2rem(60);
-    background: #fff;
-    margin-top:px2rem(15);
-    padding-left:px2rem(20);
-    width: 100%;
+    font-size: px2rem(30);
   }
 }
 </style>
