@@ -1,5 +1,5 @@
 <template>
-  <div class="img-text">
+  <div class="swiper-icon-text">
       <dir class="img-box">
         <img :src="imgUrl">
       </dir>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'img-text',
+  name: 'swiper-icon-text',
   components: {},
   props: [
     'imgUrl',
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.img-text{
+.swiper-icon-text{
   .img-box{
     overflow: hidden;
     width: 100%;

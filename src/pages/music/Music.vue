@@ -1,10 +1,11 @@
 <template>
-  <div class="home-music">home-music</div>
+  <div class="music">music</div>
 </template>
 
 <script>
+import { getDiscList } from '@/api/music'
 export default {
-  name: 'home-music',
+  name: 'music',
   components: {},
   props: {},
   data () {
@@ -16,9 +17,19 @@ export default {
   // 监控data中的数据变化
   watch: {},
   // 方法集合
-  methods: {},
+  methods: {
+    getMusicList () {
+      getDiscList().then((res) => {
+        if (res.code === 0) {
+          window.console.log(res.data)
+        }
+      })
+    }
+  },
   // 生命周期 - 创建完成（可以访问当前this实例）
-  created () {},
+  created () {
+    // this.getMusicList()
+  },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {},
   // 生命周期 - 创建之前

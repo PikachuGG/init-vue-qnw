@@ -1,1 +1,5 @@
 $base-orange:#e67800;
+@mixin height-lineheight ($normal) {
+    height: $normal;
+    line-height: $normal;
+}

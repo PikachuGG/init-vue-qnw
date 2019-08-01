@@ -20,31 +20,31 @@
 </template>
 
 <script>
-import HomeTravel from '@/views/HomeTravel'
-import HomeMusic from '@/views/HomeMusic'
-import HomeOther from '@/views/HomeOther'
+import Travel from '@/pages/travel/Travel'
+import Music from '@/pages/music/Music'
+import Other from '@/pages/other/Other'
 
 export default {
   name: 'home-tab',
   components: {
-    HomeTravel,
-    HomeMusic,
-    HomeOther
+    Travel,
+    Music,
+    Other
   },
   props: {},
   data () {
     return {
       active: 0,
-      currentViem: 'HomeTravel',
+      currentViem: 'Travel',
       tabList: [{
         title: '旅游',
-        content: 'HomeTravel'
+        content: 'Travel'
       }, {
         title: '音乐',
-        content: 'HomeMusic'
+        content: 'Music'
       }, {
         title: '其他',
-        content: 'HomeOther'
+        content: 'Other'
       }]
     }
   },

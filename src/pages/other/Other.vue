@@ -1,10 +1,10 @@
 <template>
-  <div class="home-other">home-other</div>
+  <div class="other">other</div>
 </template>
 
 <script>
 export default {
-  name: 'home-other',
+  name: 'other',
   components: {},
   props: {},
   data () {

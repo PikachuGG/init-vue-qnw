@@ -11,7 +11,24 @@ module.exports = {
   devServer: {
     open: true, // 打开浏览器窗口
     host: 'localhost',
-    port: 9000
+    port: 9000,
+    proxy: {
+      '/music': {
+        target: 'https://c.y.qq.com/',
+        secure: false,
+        changeOrigin: true,
+        header: {
+          referer: 'https://c.y.qq.com',
+          host: 'c.y.qq.com'
+        },
+        pathRewrite: {
+          '^/music': ''
+        }
+      },
+      '/travel': {
+        target: 'http://localhost:9000'
+      }
+    }
   },
   // 定义scss全局变量
   css: {

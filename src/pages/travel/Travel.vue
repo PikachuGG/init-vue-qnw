@@ -1,31 +1,35 @@
 <template>
-  <div class="home-travel">
-    <page-swiper></page-swiper>
-    <page-icon></page-icon>
-    <page-title
+  <div class="travel">
+    <common-swiper></common-swiper>
+    <swiper-icon></swiper-icon>
+    <div class="choose-city border-bottom">
+      <router-link to="/citychoose">{{city}}</router-link>
+    </div>
+    <common-title
     :titleUrl="titleList[0].url"
     :titleInfo="titleList[0].title"
     >
-      <span class="iconfont icon-search" slot="title-left"></span>
-      <span class="iconfont icon-search" slot="title-right"></span>
-    </page-title>
+      <span class="iconfont icon-huo" slot="title-left"></span>
+      <span class="iconfont icon-arrowRight" slot="title-right"></span>
+    </common-title>
   </div>
 </template>
 
 <script>
-import PageSwiper from '@/components/PageSwiper'
-import PageIcon from '@/components/PageIcon'
-import PageTitle from '@/components/PageTitle'
+import CommonSwiper from '@/common/CommonSwiper'
+import SwiperIcon from '@/pages/travel/components/SwiperIcon'
+import CommonTitle from '@/common/CommonTitle'
 export default {
-  name: 'home-travel',
+  name: 'travel',
   components: {
-    PageSwiper,
-    PageIcon,
-    PageTitle
+    CommonSwiper,
+    SwiperIcon,
+    CommonTitle
   },
   props: {},
   data () {
     return {
+      city: '北京',
       titleList: [{
         title: '本周热门',
         url: 'https://www.baidu.com/'
@@ -63,9 +67,27 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.home-travel{
+.travel{
   .iconfont{
-    font-size: px2rem(30);
+    font-size: px2rem(40);
+    padding: 0 px2rem(6);
+  }
+  .icon-huo{
+    color: #f00;
+  }
+  .icon-arrowRight{
+    color: #333;
+  }
+  .choose-city{
+    @include height-lineheight(px2rem(60));
+    text-align:center;
+    font-size:px2rem(30);
+    a{
+      color: $base-orange;
+    }
+    &::before{
+      border-bottom: 1px solid #ff0000;
+    }
   }
 }
 </style>
