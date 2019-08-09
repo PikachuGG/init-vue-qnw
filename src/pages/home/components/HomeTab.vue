@@ -2,56 +2,46 @@
   <div class="home-tab">
     <div class="tab-nav">
       <ul>
-        <li
+        <router-link
+        tag="li"
         v-for="(item, index) of tabList"
         :key="index"
+        :to="item.content"
         >
-          <span
-          @click="toggle(index, item.content)"
-          :class="{active:active===index}"
-          >
+          <span>
             {{item.title}}
           </span>
-        </li>
+        </router-link>
       </ul>
     </div>
-    <component :is="currentViem"></component>
   </div>
 </template>
 
 <script>
-import Travel from '@/pages/travel/Travel'
-import Music from '@/pages/music/Music'
-import Other from '@/pages/other/Other'
-
 export default {
   name: 'home-tab',
-  components: {
-    Travel,
-    Music,
-    Other
-  },
   props: {},
   data () {
     return {
-      active: 0,
-      currentViem: 'Travel',
+      // active: 0,
+      currentViem: '/travel',
       tabList: [{
         title: '旅游',
-        content: 'Travel'
+        content: '/travel'
       }, {
         title: '音乐',
-        content: 'Music'
+        content: '/music'
       }, {
         title: '其他',
-        content: 'Other'
+        content: '/other'
       }]
     }
   },
   // 监听属性 类似于data概念
   computed: {},
   // 监控data中的数据变化
-  watch: {},
+  watch: {
+  },
   // 方法集合
   methods: {
     toggle (i, v) {
@@ -97,7 +87,9 @@ export default {
           display: inline-block;
           width: px2rem(66);
           text-align: center;
-          &.active{
+        }
+        &.active{
+          span{
             font-weight: bolder;
             border-bottom: 6px solid #fff;
           }

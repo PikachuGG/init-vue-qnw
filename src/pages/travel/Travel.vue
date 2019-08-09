@@ -1,6 +1,6 @@
 <template>
   <div class="travel">
-    <common-swiper></common-swiper>
+    <common-swiper :imgUrl="imgUrl"></common-swiper>
     <swiper-icon></swiper-icon>
     <div class="choose-city border-bottom">
       <router-link to="/citychoose">{{city}}</router-link>
@@ -36,6 +36,19 @@ export default {
       }, {
         title: '猜你喜欢',
         url: 'https://www.baidu.com/'
+      }],
+      imgUrl: [{
+        id: 1,
+        url: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20196/b421363bbbb9184deacb4247eeea7485.jpg_750x200_12b42643.jpg',
+        type: '广告1'
+      }, {
+        id: 2,
+        url: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20196/818f6cc784ae6669b74bbbb255414a53.jpg_750x200_66ca5873.jpg',
+        type: '广告2'
+      }, {
+        id: 3,
+        url: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20193/87a224d0349d94a11e97f31aa1aba4f5.jpg_750x200_1f78af87.jpg',
+        type: '广告3'
       }]
     }
   },

@@ -7,15 +7,20 @@
       v-if="show"
       ></menu-left>
     </transition>
-    <common-top>
-      <span class="iconfont icon-menu-fill" slot="common-tleft"
-      @click="showWWW"
-      ></span>
-      <input type="text" class="common-tinput" slot="common-tcenter" >
-      <span class="iconfont icon-search" slot="common-tright"></span>
-    </common-top>
-    <home-tab></home-tab>
+    <div class="home-top">
+      <common-top>
+        <span class="iconfont icon-menu-fill" slot="common-tleft"
+        @click="showWWW"
+        ></span>
+        <!-- <input type="text" class="common-tinput" slot="common-tcenter" >
+        <span class="iconfont icon-search" slot="common-tright"></span> -->
+      </common-top>
     </div>
+    <home-tab></home-tab>
+    <div class="router-view">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -70,6 +75,8 @@ export default {
 .home{
   position: relative;
   height:100%;
+  display: flex;
+  flex-direction: column;
   .iconfont{
     font-size:px2rem(60);
     line-height:px2rem(70);
@@ -94,6 +101,16 @@ export default {
     100% {
       width: 90%;
     }
+  }
+  .home-top{
+    height: px2rem(70);
+  }
+  .home-tab{
+    height: px2rem(100);
+  }
+  .router-view{
+    flex: 1;
+    overflow: hidden;
   }
 }
 </style>
