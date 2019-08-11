@@ -97,7 +97,6 @@ export default {
   }
   .music-tab{
     flex: 1;
-    background: #f00;
     overflow: hidden;
     /deep/
     .home-tab{

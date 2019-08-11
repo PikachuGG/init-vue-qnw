@@ -1,14 +1,44 @@
 <template>
-  <div class="music-singer"></div>
+  <div class="music-singer">
+    <div class="singer-choose-bar">
+      <div class="bar-title" v-show="!showTypes">全部歌手</div>
+      <div class="bar-btn" v-show="!showTypes" @click="showAction">筛选</div>
+      <div class="singer-types" v-show="showTypes">
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+        <span>华语</span>
+      </div>
+    </div>
+    <div class="singer-list">
+      <singer-list></singer-list>
+    </div>
+  </div>
 </template>
 
 <script>
+import SingerList from '@/pages/music/components/MusicSingerList'
 export default {
   name: 'music-singer',
-  components: {},
+  components: {
+    SingerList
+  },
   props: {},
   data () {
     return {
+      showTypes: false
     }
   },
   // 监听属性 类似于data概念
@@ -16,7 +46,11 @@ export default {
   // 监控data中的数据变化
   watch: {},
   // 方法集合
-  methods: {},
+  methods: {
+    showAction () {
+      this.showTypes = !this.showTypes
+    }
+  },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {},
   // 生命周期 - 挂载完成（可以访问DOM元素）
@@ -39,5 +73,36 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
+.music-singer{
+  .singer-choose-bar{
+    background: #f2f2f2;
+    clear: both;
+    overflow: hidden;
+    .bar-title{
+      line-height: px2rem(60);
+      font-size:px2rem(28);
+      color:#333;
+      float: left;
+    }
+    .bar-btn{
+      float: right;
+      line-height: px2rem(60);
+      font-size:px2rem(28);
+      color:#333;
+    }
+    .singer-types{
+      display: flex;
+      span{
+        flex: 1;
+        line-height: px2rem(60);
+        font-size:px2rem(28);
+        color:#333;
+      }
+    }
+  }
+  .singer-list{
+    height:200px;
+    background: #fcc;
+  }
+}
 </style>

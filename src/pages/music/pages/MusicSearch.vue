@@ -1,14 +1,31 @@
 <template>
-  <div class="music-search"></div>
+  <div class="music-search">
+    <div class="search-hottags">
+      <common-title :titleInfo="titlehot"></common-title>
+      <search-tags></search-tags>
+    </div>
+    <div class="search-historytags">
+      <common-title :titleInfo="titlehistory"></common-title>
+      <search-tags></search-tags>
+    </div>
+  </div>
 </template>
 
 <script>
+import CommonTitle from '@/common/CommonTitle'
+import SearchTags from '@/pages/music/components/MusicSearchTags'
+
 export default {
   name: 'music-search',
-  components: {},
+  components: {
+    CommonTitle,
+    SearchTags
+  },
   props: {},
   data () {
     return {
+      titlehot: '热门搜索',
+      titlehistory: '历史记录'
     }
   },
   // 监听属性 类似于data概念

@@ -2,36 +2,7 @@
   <div class="music-recommend">
     <scroll class="recommend-wrapper">
       <div class="recommend-list">
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
-          <li>1111111</li>
+        <music-list></music-list>
       </div>
     </scroll>
   </div>
@@ -39,11 +10,12 @@
 
 <script>
 import Scroll from '@/common/scroll/scroll'
-
+import MusicList from '@/pages/music/components/MusicList'
 export default {
   name: 'music-recommend',
   components: {
-    Scroll
+    Scroll,
+    MusicList
   },
   props: {},
   data () {
@@ -86,7 +58,6 @@ export default {
   overflow: hidden;
   .recommend-wrapper{
     height: 100%;
-    background: #fcc;
     overflow: hidden;
     .recommend-list{
       li{
