@@ -1,25 +1,12 @@
 <template>
-  <div ref="wrapper">
-    <slot></slot>
-  </div>
+  <div class="music-play-song">222222</div>
 </template>
 
 <script>
-import BScroll from 'better-scroll'
 export default {
-  name: 'scroll',
-  props: {
-    probeType: {
-      type: Number,
-      default: function () {
-        return 1
-      }
-    },
-    click: {
-      type: Boolean,
-      default: true
-    }
-  },
+  name: 'music-play-song',
+  components: {},
+  props: {},
   data () {
     return {
     }
@@ -29,22 +16,11 @@ export default {
   // 监控data中的数据变化
   watch: {},
   // 方法集合
-  methods: {
-    _initScroll () {
-      this.bscroll = new BScroll(this.$refs.wrapper, {
-        probeType: this.probeType,
-        click: this.click
-      })
-    }
-  },
+  methods: {},
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {},
   // 生命周期 - 挂载完成（可以访问DOM元素）
-  mounted () {
-    setTimeout(() => {
-      this._initScroll()
-    }, 20)
-  },
+  mounted () {},
   // 生命周期 - 创建之前
   beforeCreate () {},
   // 生命周期 - 挂载之前
@@ -63,5 +39,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
+.music-play-song{
+  background: #fcc;
+}
 </style>

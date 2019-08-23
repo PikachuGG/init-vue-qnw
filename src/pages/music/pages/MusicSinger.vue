@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="singer-list">
-      <singer-list></singer-list>
+      <singer-list :singerList="singerList"></singer-list>
     </div>
   </div>
 </template>
@@ -35,7 +35,11 @@ export default {
   components: {
     SingerList
   },
-  props: {},
+  props: {
+    singerList: {
+      type: Array
+    }
+  },
   data () {
     return {
       showTypes: false
@@ -74,10 +78,15 @@ export default {
 
 <style lang='scss' scoped>
 .music-singer{
+  height: 100%;
+  overflow: hidden;
+  background: #f2f2f2;
+  display: flex;
+  flex-direction: column;
   .singer-choose-bar{
-    background: #f2f2f2;
+    background: #ff0;
     clear: both;
-    overflow: hidden;
+    height: px2rem(60);
     .bar-title{
       line-height: px2rem(60);
       font-size:px2rem(28);
@@ -101,8 +110,8 @@ export default {
     }
   }
   .singer-list{
-    height:200px;
-    background: #fcc;
+    flex: 1;
+    overflow: hidden;
   }
 }
 </style>

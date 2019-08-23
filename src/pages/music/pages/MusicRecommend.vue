@@ -2,7 +2,27 @@
   <div class="music-recommend">
     <scroll class="recommend-wrapper">
       <div class="recommend-list">
-        <music-list></music-list>
+        <ul>
+          <li
+          v-for="(item, index) of songList"
+          :key="index"
+          @click="selectItem(item)"
+          >
+            <div class="list-l">
+              <img v-lazy="item.image">
+            </div>
+            <div class="list-r border-bottom">
+              <div class="list-r-info">
+                <div class="list-title">{{item.name}}</div>
+                <div class="list-desc">{{getDesc(item)}}</div>
+              </div>
+              <div class="list-r-operate">
+                <div class="list-playicon"><span class="iconfont icon-bofang-yuanshijituantubiao"></span></div>
+                <div class="list-shareicon"><span class="iconfont icon-gengduo"></span></div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </scroll>
   </div>
@@ -10,14 +30,14 @@
 
 <script>
 import Scroll from '@/common/scroll/scroll'
-import MusicList from '@/pages/music/components/MusicList'
 export default {
   name: 'music-recommend',
   components: {
-    Scroll,
-    MusicList
+    Scroll
   },
-  props: {},
+  props: {
+    songList: Array
+  },
   data () {
     return {
     }
@@ -29,6 +49,15 @@ export default {
   watch: {},
   // 方法集合
   methods: {
+    getDesc (item) {
+      return `${item.singer}--${item.album}`
+    },
+    selectItem (item) {
+      window.console.log(item)
+      this.$router.push({
+        path: `music/recommend/${item.mid}`
+      })
+    }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {},
@@ -56,12 +85,74 @@ export default {
 .music-recommend{
   height: 100%;
   overflow: hidden;
+  background: #f2f2f2;
   .recommend-wrapper{
     height: 100%;
     overflow: hidden;
     .recommend-list{
-      li{
-        height: 60px;
+      ul{
+        li{
+          padding: px2rem(18) 0;
+          display: flex;
+          background: #fff;
+          .list-l{
+            width: px2rem(110);
+            height: px2rem(90);
+            img{
+              width: px2rem(90);
+              margin: 0 px2rem(10);
+            }
+            img[lazy=loading]{
+              width: px2rem(90);
+            }
+          }
+          .list-r{
+            height: px2rem(90);
+            flex:1;
+            display: flex;
+            .list-r-info{
+              flex: 1;
+              .list-title{
+                @include height-lineheight(px2rem(50));
+                font-size: px2rem(30);
+                color: #333;
+              }
+              .list-desc{
+                  @include height-lineheight(px2rem(40));
+                  font-size: px2rem(20);
+                  color: #8a8a8a;
+              }
+            }
+            .list-r-operate{
+              width: px2rem(130);
+              height: px2rem(90);
+              display: flex;
+              .list-playicon{
+                flex: 1;
+                height: px2rem(90);
+                line-height: px2rem(90);
+                text-align: center;
+                .iconfont{
+                  font-size: px2rem(50);
+                  color: #333;
+                }
+              }
+              .list-shareicon{
+                width: px2rem(60);
+                height: px2rem(90);
+                line-height: px2rem(90);
+                text-align: center;
+                .iconfont{
+                  font-size: px2rem(50);
+                  color: #333;
+                }
+              }
+            }
+          }
+          .border-bottom::before{
+            border-color:#333;
+          }
+        }
       }
     }
   }

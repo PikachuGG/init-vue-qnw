@@ -2,54 +2,45 @@
   <div class="home-tab">
     <div class="tab-nav">
       <ul>
-        <li
+        <router-link
+        tag="li"
         v-for="(item, index) of tabList"
         :key="index"
+        :to="item.content"
         >
-          <span
-          @click="toggle(index, item.content)"
-          :class="{active:active===index}"
-          >
+          <span>
             {{item.title}}
           </span>
-        </li>
+        </router-link>
       </ul>
     </div>
-    <div class="tab-con"><component :is="currentViem"></component></div>
   </div>
 </template>
 
 <script>
-import MusicRecommend from '@/pages/music/pages/MusicRecommend'
-import MusicSinger from '@/pages/music/pages/MusicSinger'
-import MusicRank from '@/pages/music/pages/MusicRank'
-import MusicSearch from '@/pages/music/pages/MusicSearch'
-
 export default {
   name: 'music-tab',
-  components: {
-    MusicRecommend,
-    MusicSinger,
-    MusicRank,
-    MusicSearch
+  components: {},
+  props: {
+    songList: Array,
+    singerList: Array
   },
-  props: {},
   data () {
     return {
-      active: 0,
-      currentViem: 'MusicRecommend',
+      // active: 0,
+      currentViem: '/music/recommend',
       tabList: [{
         title: '推荐',
-        content: 'MusicRecommend'
+        content: '/music/recommend'
       }, {
         title: '歌手',
-        content: 'MusicSinger'
+        content: '/music/singer'
       }, {
         title: '排行',
-        content: 'MusicRank'
+        content: '/music/rank'
       }, {
         title: '搜索',
-        content: 'MusicSearch'
+        content: '/music/search'
       }]
     }
   },

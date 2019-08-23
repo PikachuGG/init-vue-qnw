@@ -1,10 +1,13 @@
 <template>
   <div class="music">
     <div class="music-swiper">
-      <common-swiper :imgUrl="swiperImgUrl"></common-swiper>
+      <common-swiper :imgUrl="sliderList"></common-swiper>
     </div>
     <div class="music-tab">
       <music-tab></music-tab>
+      <div class="router-view">
+        <router-view :songList="songList" :singerList="singerList"></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -12,7 +15,8 @@
 <script>
 import CommonSwiper from '@/common/CommonSwiper'
 import MusicTab from '@/pages/music/components/MusicTab'
-import { getDiscList, getMusicSlider } from '@/api/music'
+import { getMusicSlider, getMusicSongList, getMusicSingerList } from '@/api/music'
+import { createSong } from '@/assets/js/song-list'
 export default {
   name: 'music',
   components: {
@@ -22,7 +26,9 @@ export default {
   props: {},
   data () {
     return {
-      swiperImgUrl: []
+      sliderList: [],
+      songList: [],
+      singerList: []
     }
   },
   // 监听属性 类似于data概念
@@ -31,32 +37,64 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    getMusicList () {
-      getDiscList().then((res) => {
-        if (res.code === 0) {
-        }
-      })
-    },
+    // getMusicList () {
+    //   getDiscList().then((res) => {
+    //     if (res.code === 0) {
+    //       window.console.log(res.data)
+    //     }
+    //   })
+    // },
     getSliderList () {
       getMusicSlider().then((res) => {
         if (res.code === 0) {
-          this.filterImg(res.data.slider)
+          this.sliderList = this._normalizeSlider(res.data.slider)
         }
       })
     },
-    filterImg (imgUrl) {
-      for (let index = 0; index < imgUrl.length; index++) {
-        let e = {}
-        e.id = imgUrl[index].id
-        e.url = imgUrl[index].picUrl
-        this.swiperImgUrl.push(e)
+    getSongList () {
+      getMusicSongList().then((res) => {
+        if (res.code === 0) {
+          this.songList = this._normalizeSongList(res.songlist)
+        }
+      })
+    },
+    getSingerList () {
+      getMusicSingerList().then((res) => {
+        if (res.code === 0) {
+          this.singerList = res.singerList.data.singerlist
+        }
+      })
+    },
+    _normalizeSlider (slider) {
+      let ret = []
+      for (let index = 0; index < slider.length; index++) {
+        let retchildren = {}
+        retchildren.id = slider[index].id
+        retchildren.url = slider[index].picUrl
+        ret.push(retchildren)
       }
+      return ret
+    },
+    _normalizeSongList (songlist) {
+      let ret = []
+      songlist.forEach(element => {
+        const musicData = element.data
+        if (musicData.songid && musicData.albummid) {
+          ret.push(createSong(musicData))
+        }
+      })
+      return ret
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
-    // this.getMusicList(),
+    // 搜索-热门搜索
+    // this.getMusicList()
+    // 音乐轮播图
     this.getSliderList()
+    // 推荐列表
+    this.getSongList()
+    // this.getSingerList()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {},
@@ -95,25 +133,6 @@ export default {
       }
     }
   }
-  .music-tab{
-    flex: 1;
-    overflow: hidden;
-    /deep/
-    .home-tab{
-      .tab-nav{
-        background: #fff;
-        ul{
-          li{
-            span{
-              color: $base-orange;
-              &.active{
-                border-bottom: 6px solid $base-orange;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  .music-tab{}
 }
 </style>

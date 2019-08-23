@@ -5,6 +5,11 @@ import CityChoose from '@/pages/travel/components/CityChoose'
 import Travel from '@/pages/travel/Travel'
 import Music from '@/pages/music/Music'
 import Other from '@/pages/other/Other'
+import MusicRecommend from '@/pages/music/pages/MusicRecommend'
+import MusicSinger from '@/pages/music/pages/MusicSinger'
+import MusicRank from '@/pages/music/pages/MusicRank'
+import MusicSearch from '@/pages/music/pages/MusicSearch'
+import MusicPlaySong from '@/pages/music/components/MusicPlaySong'
 
 Vue.use(Router)
 
@@ -17,24 +22,53 @@ export default new Router({
       redirect: '/travel',
       children: [
         {
-          path: '/travel',
+          path: 'travel',
           name: 'travel',
           component: Travel
         },
         {
-          path: '/music',
+          path: 'music',
           name: 'music',
-          component: Music
+          component: Music,
+          redirect: '/music/recommend',
+          children: [
+            {
+              path: 'recommend',
+              name: 'music-recommend',
+              component: MusicRecommend,
+              children: [
+                {
+                  path: ':id',
+                  component: MusicPlaySong
+                }
+              ]
+            },
+            {
+              path: 'singer',
+              name: 'music-singer',
+              component: MusicSinger
+            },
+            {
+              path: 'rank',
+              name: 'music-rank',
+              component: MusicRank
+            },
+            {
+              path: 'search',
+              name: 'music-search',
+              component: MusicSearch
+            }
+          ]
         },
         {
-          path: '/other',
+          path: 'other',
           name: 'other',
           component: Other
         }
       ]
     },
     {
-      path: '/citychoose',
+      path: 'citychoose',
       name: 'city-choose',
       component: CityChoose
     }
