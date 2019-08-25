@@ -10,68 +10,69 @@ import MusicSinger from '@/pages/music/pages/MusicSinger'
 import MusicRank from '@/pages/music/pages/MusicRank'
 import MusicSearch from '@/pages/music/pages/MusicSearch'
 import MusicPlaySong from '@/pages/music/components/MusicPlaySong'
+import MusicPlay from '@/pages/music/pages/MusicPlay'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
+  routes: [{
+    path: '/',
+    name: 'home',
+    component: Home,
+    redirect: '/travel',
+    children: [{
+      path: 'travel',
+      name: 'travel',
+      component: Travel
+    },
     {
-      path: '/',
-      name: 'home',
-      component: Home,
-      redirect: '/travel',
-      children: [
-        {
-          path: 'travel',
-          name: 'travel',
-          component: Travel
-        },
-        {
-          path: 'music',
-          name: 'music',
-          component: Music,
-          redirect: '/music/recommend',
-          children: [
-            {
-              path: 'recommend',
-              name: 'music-recommend',
-              component: MusicRecommend,
-              children: [
-                {
-                  path: ':id',
-                  component: MusicPlaySong
-                }
-              ]
-            },
-            {
-              path: 'singer',
-              name: 'music-singer',
-              component: MusicSinger
-            },
-            {
-              path: 'rank',
-              name: 'music-rank',
-              component: MusicRank
-            },
-            {
-              path: 'search',
-              name: 'music-search',
-              component: MusicSearch
-            }
-          ]
-        },
-        {
-          path: 'other',
-          name: 'other',
-          component: Other
-        }
+      path: 'music',
+      name: 'music',
+      component: Music,
+      redirect: '/music/recommend',
+      children: [{
+        path: 'recommend',
+        name: 'music-recommend',
+        component: MusicRecommend
+      },
+      {
+        path: 'singer',
+        name: 'music-singer',
+        component: MusicSinger
+      },
+      {
+        path: 'rank',
+        name: 'music-rank',
+        component: MusicRank
+      },
+      {
+        path: 'search',
+        name: 'music-search',
+        component: MusicSearch
+      }
       ]
+    },
+    {
+      path: 'other',
+      name: 'other',
+      component: Other
     },
     {
       path: 'citychoose',
       name: 'city-choose',
       component: CityChoose
     }
+    ]
+  },
+  {
+    path: '/musicplay',
+    name: 'music-play',
+    component: MusicPlay,
+    children: [{
+      path: ':id',
+      component: MusicPlaySong
+    }]
+  }
   ],
   linkActiveClass: 'active'
 })

@@ -1,19 +1,17 @@
 <template>
-  <div class="home-tab">
-    <div class="tab-nav">
-      <ul>
-        <router-link
-        tag="li"
-        v-for="(item, index) of tabList"
-        :key="index"
-        :to="item.content"
-        >
-          <span>
-            {{item.title}}
-          </span>
-        </router-link>
-      </ul>
-    </div>
+  <div class="tab-nav">
+    <ul>
+      <router-link
+      tag="li"
+      v-for="(item, index) of tabList"
+      :key="index"
+      :to="item.content"
+      >
+        <span>
+          {{item.title}}
+        </span>
+      </router-link>
+    </ul>
   </div>
 </template>
 
@@ -77,37 +75,30 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.home-tab{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  .tab-nav{
-    background: $base-orange;
-    padding: px2rem(20) 0;
-    ul{
-      display: flex;
-      li{
-        flex: 1;
+.tab-nav{
+  background: #fff;
+  padding: px2rem(20) 0;
+  ul{
+    display: flex;
+    li{
+      flex: 1;
+      text-align: center;
+      span{
+        font-size: px2rem(30);
+        line-height: px2rem(60);
+        color: #333;
+        display: inline-block;
+        width: px2rem(66);
         text-align: center;
+      }
+      &.active{
         span{
-          font-size: px2rem(30);
-          line-height: px2rem(60);
-          color: #fff;
-          display: inline-block;
-          width: px2rem(66);
-          text-align: center;
-          &.active{
-            font-weight: bolder;
-            border-bottom: 6px solid #fff;
-          }
+          color: $base-orange;
+          font-weight: bolder;
+          border-bottom: 6px solid $base-orange;
         }
       }
     }
-  }
-  .tab-con{
-    flex: 1;
-    overflow: hidden;
   }
 }
 </style>

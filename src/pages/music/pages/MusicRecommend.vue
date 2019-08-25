@@ -53,9 +53,9 @@ export default {
       return `${item.singer}--${item.album}`
     },
     selectItem (item) {
-      window.console.log(item)
+      window.console.log(2)
       this.$router.push({
-        path: `music/recommend/${item.mid}`
+        path: `/musicplay/${item.mid}`
       })
     }
   },

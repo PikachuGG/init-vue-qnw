@@ -1,11 +1,11 @@
 <template>
   <div class="music">
-    <div class="music-swiper">
+    <div class="swiper">
       <common-swiper :imgUrl="sliderList"></common-swiper>
     </div>
-    <div class="music-tab">
-      <music-tab></music-tab>
-      <div class="router-view">
+    <div class="tab">
+      <div class="tab-wrapper">
+        <music-tab></music-tab>
         <router-view :songList="songList" :singerList="singerList"></router-view>
       </div>
     </div>
@@ -121,7 +121,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  .music-swiper{
+  .swiper{
     /deep/
     .common-swiper{
       padding:0 0 40%;
@@ -133,6 +133,19 @@ export default {
       }
     }
   }
-  .music-tab{}
+  .tab{
+    flex: 1;
+    overflow: hidden;
+    .tab-wrapper{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      .router-view{
+        flex: 1;
+        overflow: hidden;
+      }
+    }
+  }
 }
 </style>

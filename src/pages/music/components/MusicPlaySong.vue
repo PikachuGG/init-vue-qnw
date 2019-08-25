@@ -1,14 +1,27 @@
 <template>
-  <div class="music-play-song">222222</div>
+  <div class="music-play-song">
+    <div class="play-bg">
+      <img src="" alt="">
+    </div>
+    <div class="top">
+        <div class="top-left"><span class="iconfont icon-arrowLeft"></span></div>
+        <div class="top-center">{{title}}</div>
+        <div class="top-right"></div>
+    </div>
+  </div>
 </template>
 
 <script>
+import CommomTop from '@/common/CommonTop'
 export default {
   name: 'music-play-song',
-  components: {},
+  components: {
+    CommomTop
+  },
   props: {},
   data () {
     return {
+      title: '123'
     }
   },
   // 监听属性 类似于data概念
@@ -41,5 +54,47 @@ export default {
 <style lang='scss' scoped>
 .music-play-song{
   background: #fcc;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  .play-bg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(20px);
+  }
+  .top{
+    background: $base-orange;
+    height: px2rem(70);
+    color: #fff;
+    display: flex;
+    .top-left{
+      width: px2rem(120);
+      height: px2rem(70);
+      padding-left: px2rem(10);
+      text-align: left;
+      .iconfont{
+        font-size:px2rem(60);
+        line-height:px2rem(70);
+      }
+    }
+    .top-center{
+      flex: 1;
+      height: px2rem(70);
+      font-size:px2rem(40);
+      line-height:px2rem(70);
+      text-align: center;
+    }
+    .top-right{
+      width: px2rem(120);
+      height: px2rem(70);
+      padding-right: px2rem(10);
+      text-align: right;
+    }
+  }
 }
 </style>
