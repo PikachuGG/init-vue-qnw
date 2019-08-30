@@ -6,7 +6,7 @@
     <div class="tab">
       <div class="tab-wrapper">
         <music-tab></music-tab>
-        <router-view :songList="songList" :singerList="singerList"></router-view>
+        <router-view :songList="songList" :singerList="singerList" @select="selectItem" @selectSinger="selectSinger"></router-view>
       </div>
     </div>
   </div>
@@ -17,6 +17,7 @@ import CommonSwiper from '@/common/CommonSwiper'
 import MusicTab from '@/pages/music/components/MusicTab'
 import { getMusicSlider, getMusicSongList, getMusicSingerList } from '@/api/music'
 import { createSong } from '@/assets/js/song-list'
+import { mapActions } from 'vuex'
 export default {
   name: 'music',
   components: {
@@ -84,7 +85,23 @@ export default {
         }
       })
       return ret
-    }
+    },
+    selectItem (item, index) {
+      this.$router.push({
+        path: `/songplay/${item.id}`
+      })
+      this.setDisc(item)
+    },
+    selectSinger (item, index) {
+      this.$router.push({
+        path: `/singerpage/${item.singer_mid}`
+      })
+      this.setSinger(item)
+    },
+    ...mapActions([
+      'setDisc',
+      'setSinger'
+    ])
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {
@@ -94,7 +111,7 @@ export default {
     this.getSliderList()
     // 推荐列表
     this.getSongList()
-    // this.getSingerList()
+    this.getSingerList()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {},

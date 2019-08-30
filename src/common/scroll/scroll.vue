@@ -18,6 +18,14 @@ export default {
     click: {
       type: Boolean,
       default: true
+    },
+    data: {
+      type: Array,
+      default: null
+    },
+    refreshDelay: {
+      type: Number,
+      default: 20
     }
   },
   data () {
@@ -27,7 +35,13 @@ export default {
   // 监听属性 类似于data概念
   computed: {},
   // 监控data中的数据变化
-  watch: {},
+  watch: {
+    data () {
+      setTimeout(() => {
+        this.refresh()
+      }, this.refreshDelay)
+    }
+  },
   // 方法集合
   methods: {
     _initScroll () {
@@ -35,6 +49,9 @@ export default {
         probeType: this.probeType,
         click: this.click
       })
+    },
+    refresh () {
+      this.scroll && this.scroll.refresh()
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

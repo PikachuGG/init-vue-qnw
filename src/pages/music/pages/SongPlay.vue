@@ -1,12 +1,12 @@
 <template>
-  <div class='music-play'>
+  <div class='song-play'>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'music-play',
+  name: 'song-play',
   components: {},
   props: {},
   data () {
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.music-play{
+.song-play{
   height: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="music-play-song">
+  <div class="play">
     <div class="play-bg">
       <img src="" alt="">
     </div>
@@ -12,12 +12,9 @@
 </template>
 
 <script>
-import CommomTop from '@/common/CommonTop'
 export default {
-  name: 'music-play-song',
-  components: {
-    CommomTop
-  },
+  name: 'play',
+  components: {},
   props: {},
   data () {
     return {
@@ -52,7 +49,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.music-play-song{
+.play{
   background: #fcc;
   position: fixed;
   width: 100%;

@@ -9,8 +9,11 @@ import MusicRecommend from '@/pages/music/pages/MusicRecommend'
 import MusicSinger from '@/pages/music/pages/MusicSinger'
 import MusicRank from '@/pages/music/pages/MusicRank'
 import MusicSearch from '@/pages/music/pages/MusicSearch'
-import MusicPlaySong from '@/pages/music/components/MusicPlaySong'
-import MusicPlay from '@/pages/music/pages/MusicPlay'
+import SongPlay from '@/pages/music/pages/SongPlay'
+import Play from '@/pages/music/components/Play'
+import MusicSingerPage from '@/pages/music/components/MusicSingerPage'
+import SingerDetail from '@/pages/music/components/SingerDetail'
+import CanvasBg from '@/common/CanvasBg'
 
 Vue.use(Router)
 
@@ -65,13 +68,27 @@ export default new Router({
     ]
   },
   {
-    path: '/musicplay',
-    name: 'music-play',
-    component: MusicPlay,
+    path: '/songplay',
+    name: 'song-play',
+    component: SongPlay,
     children: [{
       path: ':id',
-      component: MusicPlaySong
+      component: Play
     }]
+  },
+  {
+    path: '/singerpage',
+    name: 'music-singer-page',
+    component: MusicSingerPage,
+    children: [{
+      path: ':id',
+      component: SingerDetail
+    }]
+  },
+  {
+    path: '/canvasbg',
+    name: 'canvas-bg',
+    component: CanvasBg
   }
   ],
   linkActiveClass: 'active'

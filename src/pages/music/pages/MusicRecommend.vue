@@ -1,12 +1,12 @@
 <template>
   <div class="music-recommend">
-    <scroll class="recommend-wrapper">
+    <scroll class="recommend-wrapper" :data="songList">
       <div class="recommend-list">
         <ul>
           <li
           v-for="(item, index) of songList"
           :key="index"
-          @click="selectItem(item)"
+          @click="selectItem(item, index)"
           >
             <div class="list-l">
               <img v-lazy="item.image">
@@ -52,11 +52,10 @@ export default {
     getDesc (item) {
       return `${item.singer}--${item.album}`
     },
-    selectItem (item) {
-      window.console.log(2)
-      this.$router.push({
-        path: `/musicplay/${item.mid}`
-      })
+    selectItem (item, index) {
+      this.$emit('select', item, index)
+      // window.console.log(item)
+      // window.console.log(index)
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
