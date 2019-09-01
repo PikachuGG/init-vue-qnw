@@ -1,23 +1,26 @@
 <template>
   <div class="music-singer-page">
-    <router-view
+    <singer-detail
     :singerImg="singerImg"
     :songList="songList"
     :singName="singName"
     :singDesc="singDesc"
     :songTotal="songTotal"
     >
-    </router-view>
+    </singer-detail>
   </div>
 </template>
 
 <script>
+import SingerDetail from '@/pages/music/components/SingerDetail'
 import { createSong } from '@/assets/js/song-list'
 import { getMusicSingerDetail } from '@/api/music'
 import { mapGetters } from 'vuex'
 export default {
   name: 'music-singer-page',
-  components: {},
+  components: {
+    SingerDetail
+  },
   props: {},
   data () {
     return {
@@ -44,10 +47,11 @@ export default {
   methods: {
     _getDetail () {
       if (!this.singer.singer_id) {
-        this.$router.push('/music/singer')
+        // this.$router.push('/music/singer')
+        // window.console.log(this.$router.history.current.params.id)
       }
       getMusicSingerDetail(this.singer.singer_mid).then((res) => {
-        // window.console.log(res)
+        window.console.log(typeof this.singer.singer_mid)
         if (res.code === 0) {
           this.singDesc = res.singer.data.singer_brief
           this.songTotal = res.singer.data.total_song

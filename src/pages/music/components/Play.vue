@@ -1,12 +1,21 @@
 <template>
   <div class="play">
     <div class="play-bg">
-      <img src="" alt="">
+      <img :src="disc.image">
     </div>
     <div class="top">
-        <div class="top-left"><span class="iconfont icon-arrowLeft"></span></div>
-        <div class="top-center">{{title}}</div>
+        <div class="top-left"><span @click="backAction" class="iconfont icon-arrowLeft"></span></div>
+        <div class="top-center">{{disc.name}}</div>
         <div class="top-right"></div>
+    </div>
+    <div class="middle">
+      <div class="player-img"></div>
+      <div class="player-lyric"></div>
+    </div>
+    <div class="play-audio">
+      <audio :src="disc.url" autoplay="autoplay">
+          您的浏览器不支持 audio 标签。
+      </audio>
     </div>
   </div>
 </template>
@@ -15,20 +24,28 @@
 export default {
   name: 'play',
   components: {},
-  props: {},
+  props: {
+    disc: Object
+  },
   data () {
-    return {
-      title: '123'
-    }
+    return {}
   },
   // 监听属性 类似于data概念
   computed: {},
   // 监控data中的数据变化
   watch: {},
   // 方法集合
-  methods: {},
+  methods: {
+    backAction () {
+      this.$router.go(-1)
+    }
+  },
   // 生命周期 - 创建完成（可以访问当前this实例）
-  created () {},
+  created () {
+    if (!this.disc.id) {
+      this.$router.go(-1)
+    }
+  },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {},
   // 生命周期 - 创建之前

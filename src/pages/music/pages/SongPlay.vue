@@ -1,10 +1,11 @@
 <template>
   <div class='song-play'>
-    <router-view></router-view>
+    <router-view :disc="disc"></router-view>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'song-play',
   components: {},
@@ -14,7 +15,11 @@ export default {
     }
   },
   // 监听属性 类似于data概念
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'disc'
+    ])
+  },
   // 监控data中的数据变化
   watch: {},
   // 方法集合

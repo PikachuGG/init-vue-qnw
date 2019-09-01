@@ -137,3 +137,26 @@ export function getMusicSingerDetail (singermid) {
     console.log(error)
   })
 }
+
+export function getPlaySongKey (songmid) {
+  const url = '/song/getPlaySongUrl'
+  const data = {
+    g_tk: 5381,
+    inCharset: 'utf-8',
+    outCharset: 'utf-8',
+    notice: 0,
+    format: 'json',
+    loginUin: 0,
+    hostUin: 0,
+    platform: 'yqq.json',
+    needNewCode: 0,
+    data: `{"req_0":{"module":"vkey.GetVkeyServer","method":"CgiGetVkey","param":{"guid":"4929716310","songmid":["${songmid}"],"songtype":[0],"uin":"0","loginflag":1,"platform":"20"}},"comm":{"uin":"0","format":"json","ct":24,"cv":0}}`
+  }
+  return axios.get(url, {
+    params: data
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  }).catch(function (error) {
+    console.log(error)
+  })
+}

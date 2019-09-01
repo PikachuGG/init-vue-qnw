@@ -72,7 +72,7 @@ export default {
   // 方法集合
   methods: {
     getDesc (item) {
-      return `${item.singer}--${item.album}`
+      return `${item.singer.join('/')}《${item.album}》`
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）

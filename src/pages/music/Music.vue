@@ -15,7 +15,7 @@
 <script>
 import CommonSwiper from '@/common/CommonSwiper'
 import MusicTab from '@/pages/music/components/MusicTab'
-import { getMusicSlider, getMusicSongList, getMusicSingerList } from '@/api/music'
+import { getMusicSlider, getMusicSongList, getMusicSingerList, getPlaySongKey } from '@/api/music'
 import { createSong } from '@/assets/js/song-list'
 import { mapActions } from 'vuex'
 export default {
@@ -88,9 +88,16 @@ export default {
     },
     selectItem (item, index) {
       this.$router.push({
-        path: `/songplay/${item.id}`
+        path: `/songplay/${item.mid}`
       })
-      this.setDisc(item)
+      if (item.mid) {
+        getPlaySongKey(item.mid).then((res) => {
+          if (res.code === 0) {
+            item.url = res.req_0.data.sip[0] + res.req_0.data.midurlinfo[0].purl
+          }
+        })
+      }
+      this.setDisc(item)  
     },
     selectSinger (item, index) {
       this.$router.push({
