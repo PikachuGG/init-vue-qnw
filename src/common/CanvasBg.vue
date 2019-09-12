@@ -1,151 +1,170 @@
 <template>
-  <div class="flex-container" id="login" :style="{height: screenHeight+'px'}">
-    <div class="canvaszz" :style="{height: screenHeight+'px'}"></div>
-    <canvas id="canvas" :style="{height: screenHeight+'px'}"></canvas>
+  <div class="canvas-bg">
+    <canvas id="canvas" width="300" height="150"></canvas>
   </div>
 </template>
 
 <script>
-// import mapState from 'vuex'
 export default {
+  name: 'canvas-bg',
+  components: {},
+  props: {},
   data () {
     return {
-      screenHeight: window.innerHeight // 屏幕高度
+      canvas: '',
+      ctx: '',
+      w: 0,
+      h: 0,
+      r: 200,
+      hours: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2]
     }
   },
-  watch: {
-    'screenHeight': function (val) { // 监听屏幕高度变化
-      var oIframe = document.getElementById('login')
-      oIframe.style.height = Number(val) + 'px' // '120'是页面布局调整，可去除
-    }
-  },
-  mounted () {
-    var _this = this
-    window.onresize = function () { // 定义窗口大小变更通知事件
-      _this.screenHeight = document.documentElement.clientHeight // 窗口高度
-    }
-    var canvas = document.getElementById('canvas')
-    var ctx = canvas.getContext('2d')
-    var w = canvas.width = window.innerWidth
-    var h = canvas.height = window.innerHeight
-    var hue = 217
-    var stars = []
-    var count = 0
-    var maxStars = 1300 // 星星数量
-
-    var canvas2 = document.createElement('canvas')
-    var ctx2 = canvas2.getContext('2d')
-    canvas2.width = 100
-    canvas2.height = 100
-    var half = canvas2.width / 2
-    var gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half)
-    gradient2.addColorStop(0.025, '#CCC')
-    gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)')
-    gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)')
-    gradient2.addColorStop(1, 'transparent')
-
-    ctx2.fillStyle = gradient2
-    ctx2.beginPath()
-    ctx2.arc(half, half, half, 0, Math.PI * 2)
-    ctx2.fill()
-
-    // End cache
-
-    function random (min, max) {
-      if (arguments.length < 2) {
-        max = min
-        min = 0
-      }
-
-      if (min > max) {
-        var hold = max
-        max = min
-        min = hold
-      }
-
-      return Math.floor(Math.random() * (max - min + 1)) + min
-    }
-
-    function maxOrbit (x, y) {
-      var max = Math.max(x, y)
-      var diameter = Math.round(Math.sqrt(max * max + max * max))
-      return diameter / 2
-      // 星星移动范围，值越大范围越小，
-    }
-
-    var Star = function () {
-      this.orbitRadius = random(maxOrbit(w, h))
-      this.radius = random(60, this.orbitRadius) / 8
-      // 星星大小
-      this.orbitX = w / 2
-      this.orbitY = h / 2
-      this.timePassed = random(0, maxStars)
-      this.speed = random(this.orbitRadius) / 50000
-      // 星星移动速度
-      this.alpha = random(2, 10) / 10
-
-      count++
-      stars[count] = this
-    }
-
-    Star.prototype.draw = function () {
-      var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX
-      var y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY
-      var twinkle = random(10)
-
-      if (twinkle === 1 && this.alpha > 0) {
-        this.alpha -= 0.05
-      } else if (twinkle === 2 && this.alpha < 1) {
-        this.alpha += 0.05
-      }
-
-      ctx.globalAlpha = this.alpha
-      ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius)
-      this.timePassed += this.speed
-    }
-
-    for (var i = 0; i < maxStars; i++) {
-      /* eslint-disable no-new */
-      new Star()
-    }
-
-    function animation () {
-      ctx.globalCompositeOperation = 'source-over'
-      ctx.globalAlpha = 0.5 // 尾巴
-      ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 2)'
-      ctx.fillRect(0, 0, w, h)
-
-      ctx.globalCompositeOperation = 'lighter'
-      for (var i = 1, l = stars.length; i < l; i++) {
-        stars[i].draw()
-      };
-
-      window.requestAnimationFrame(animation)
-    }
-
-    animation()
-  },
-  created () {
-    this.$http.get('/api/users').then((response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log(error)
-    })
-  },
+  // 监听属性 类似于data概念
+  computed: {},
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
   methods: {
-    addClass (val) {
-      document.getElementById(val).style.color = 'black'
-      // document.getElementById('register').style.color = 'black'
+    _initCanvas () {
+      window.console.log('初始化canvas')
+      this.canvas = document.getElementById('canvas')
+      if (!this.canvas.getContext) return
+      this.ctx = this.canvas.getContext('2d')
+      this.w = window.innerWidth
+      this.h = window.innerHeight
+      this.canvas.width = this.w
+      this.canvas.height = this.h
+      this.draw()
     },
-    deleteClass (val) {
-      document.getElementById(val).style.color = ''
+    draw () {
+      let _this = this
+      let date = new Date()
+      let hour = date.getHours()
+      let minute = date.getMinutes()
+      let second = date.getSeconds()
+      this.ctx.clearRect(0, 0, this.w, this.h)
+      this.ctx.save()
+      this.ctx.translate(this.w / 2, this.h / 2)
+      // 画背景
+      this.clockBg()
+      // 画时针
+      hour = hour + minute / 60
+      this.clockHour(hour)
+      // 画分针
+      this.clockMinute(minute)
+      // 画秒针
+      this.clockSecond(second)
+      // 画中心点
+      this.clockCircle()
+      this.ctx.restore()
+      window.requestAnimationFrame(_this.draw)
+    },
+    clockBg () {
+      this.ctx.save()
+      this.ctx.beginPath()
+      this.ctx.lineWidth = 10
+      this.ctx.arc(0, 0, this.r, 0, 2 * Math.PI, false)
+      this.ctx.stroke()
+      this.ctx.closePath()
+      for (let i = 0; i < 60; i++) {
+        const _r = this.r - 20
+        this.ctx.beginPath()
+        this.ctx.arc(_r * Math.cos(i * Math.PI / 30), _r * Math.sin(i * Math.PI / 30), 4, 0, 2 * Math.PI, false)
+        this.ctx.fillStyle = '#888'
+        if (i % 5 === 0) {
+          this.ctx.fillStyle = '#000'
+        }
+        this.ctx.fill()
+        this.ctx.closePath()
+      }
+      for (let i = 0; i < this.hours.length; i++) {
+        const _r = this.r - 40
+        this.ctx.font = '30px Arial'
+        this.ctx.textAlign = 'center'
+        this.ctx.textBaseline = 'middle'
+        this.ctx.fillStyle = '#000'
+        this.ctx.fillText(this.hours[i], _r * Math.cos(i * Math.PI / 6), _r * Math.sin(i * Math.PI / 6))
+      }
+      this.ctx.restore()
+    },
+    clockHour (hour) {
+      this.ctx.save()
+      this.ctx.rotate(hour * 30 * Math.PI / 180)
+      this.ctx.beginPath()
+      this.ctx.moveTo(0, 10)
+      this.ctx.lineTo(0, -(this.r - 90))
+      this.ctx.lineWidth = 16
+      this.ctx.lineCap = 'round'
+      this.ctx.stroke()
+      this.ctx.closePath()
+      this.ctx.restore()
+    },
+    clockMinute (minute) {
+      this.ctx.save()
+      this.ctx.rotate(minute * 6 * Math.PI / 180)
+      this.ctx.beginPath()
+      this.ctx.moveTo(0, 20)
+      this.ctx.lineTo(0, -(this.r - 60))
+      this.ctx.lineWidth = 10
+      this.ctx.lineCap = 'round'
+      this.ctx.strokeStyle = '#333'
+      this.ctx.stroke()
+      this.ctx.closePath()
+      this.ctx.restore()
+    },
+    clockSecond (second) {
+      this.ctx.save()
+      this.ctx.rotate(second * 6 * Math.PI / 180)
+      this.ctx.beginPath()
+      this.ctx.moveTo(3, 30)
+      this.ctx.lineTo(-3, 30)
+      this.ctx.lineTo(-1, -(this.r - 40))
+      this.ctx.lineTo(-6, -(this.r - 40))
+      this.ctx.lineTo(0, -(this.r - 34))
+      this.ctx.lineTo(6, -(this.r - 40))
+      this.ctx.lineTo(1, -(this.r - 40))
+      this.ctx.lineWidth = 1
+      this.ctx.fillStyle = '#f00'
+      this.ctx.fill()
+      this.ctx.closePath()
+      this.ctx.restore()
+    },
+    clockCircle () {
+      this.ctx.save()
+      this.ctx.beginPath()
+      this.ctx.arc(0, 0, 6, 0, 2 * Math.PI, false)
+      this.ctx.fillStyle = '#fff'
+      this.ctx.fill()
+      this.ctx.closePath()
+      this.ctx.restore()
+    },
+    findRandom (one, two) {
+      return one + Math.random() * (two - one)
     }
-  }
+  },
+  // 生命周期 - 创建完成（可以访问当前this实例）
+  created () {},
+  // 生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
+    this._initCanvas()
+  },
+  // 生命周期 - 创建之前
+  beforeCreate () {},
+  // 生命周期 - 挂载之前
+  beforeMount () {},
+  // 生命周期 - 更新之前
+  beforeUpdate () {},
+  // 生命周期 - 更新之后
+  updated () {},
+  // 生命周期 - 销毁之前
+  beforeDestroy () {},
+  // 生命周期 - 销毁完成
+  destroyed () {},
+  // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated () {}
 }
 </script>
 
-<style lang="scss" scoped>
-canvas {
-  width: 100%;
-}
+<style lang='scss' scoped>
+
 </style>

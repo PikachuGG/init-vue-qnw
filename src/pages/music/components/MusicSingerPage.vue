@@ -6,6 +6,7 @@
     :singName="singName"
     :singDesc="singDesc"
     :songTotal="songTotal"
+    @select="selectItem"
     >
     </singer-detail>
   </div>
@@ -14,8 +15,8 @@
 <script>
 import SingerDetail from '@/pages/music/components/SingerDetail'
 import { createSong } from '@/assets/js/song-list'
-import { getMusicSingerDetail } from '@/api/music'
-import { mapGetters } from 'vuex'
+import { getMusicSingerDetail, getPlaySongKey } from '@/api/music'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'music-singer-page',
   components: {
@@ -47,11 +48,9 @@ export default {
   methods: {
     _getDetail () {
       if (!this.singer.singer_id) {
-        // this.$router.push('/music/singer')
-        // window.console.log(this.$router.history.current.params.id)
+        window.console.log('获取不到歌手')
       }
       getMusicSingerDetail(this.singer.singer_mid).then((res) => {
-        window.console.log(typeof this.singer.singer_mid)
         if (res.code === 0) {
           this.singDesc = res.singer.data.singer_brief
           this.songTotal = res.singer.data.total_song
@@ -68,7 +67,24 @@ export default {
         }
       })
       return ret
-    }
+    },
+    selectItem (item, index) {
+      this.$router.push({
+        path: `/songplay/${item.mid}`
+      })
+      if (item.mid) {
+        getPlaySongKey(item.mid).then((res) => {
+          window.console.log(res)
+          if (res.code === 0) {
+            item.url = res.req_0.data.sip[0] + res.req_0.data.midurlinfo[0].purl
+          }
+        })
+      }
+      this.setDisc(item)
+    },
+    ...mapActions([
+      'setDisc'
+    ])
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {

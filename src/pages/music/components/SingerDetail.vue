@@ -8,11 +8,12 @@
           </div>
           <div class="singer-info">
             <div class="singer-name">{{singName}}</div>
-            <div class="singer-desc">{{singDesc}}</div>
+            <div class="singer-desc" @click="showDialog">{{singDesc}}</div>
           </div>
           <div class="play-wrapper">
-            <div class="play-btn">
-              <span class=""></span>
+            <div class="play-btn" @click="changeMode">
+              <span class="iconfont" :class="iconMode"></span>
+              <span class="text">{{playModeText}}</span>
             </div>
           </div>
         </div>
@@ -44,15 +45,24 @@
         </div>
       </div>
     </scroll>
+    <Dialog ref="dialog" :dialogTitle="dialogTitle" :dialogText="singDesc"></Dialog>
   </div>
 </template>
 
 <script>
 import Scroll from '@/common/scroll/scroll'
+import Dialog from '@/common/dialog/Dialog'
+import { mapGetters, mapActions } from 'vuex'
+const playMode = {
+  sequence: 0,
+  random: 1,
+  loop: 2
+}
 export default {
   name: 'singer-detail',
   components: {
-    Scroll
+    Scroll,
+    Dialog
   },
   props: {
     singName: String,
@@ -63,17 +73,41 @@ export default {
   },
   data () {
     return {
+      dialogTitle: '歌手简介'
     }
   },
   // 监听属性 类似于data概念
-  computed: {},
+  computed: {
+    iconMode () {
+      return this.mode === playMode.sequence ? 'icon-shunxubofang' : this.mode === playMode.random ? 'icon-suijibofang' : 'icon-danquxunhuan1'
+    },
+    playModeText () {
+      return this.mode === playMode.sequence ? '顺序播放' : this.mode === playMode.random ? '随机播放' : '单曲循环'
+    },
+    ...mapGetters([
+      'mode'
+    ])
+  },
   // 监控data中的数据变化
   watch: {},
   // 方法集合
   methods: {
     getDesc (item) {
       return `${item.singer.join('/')}《${item.album}》`
-    }
+    },
+    changeMode () {
+      const mode = (this.mode + 1) % 3
+      this.setPlayMode(mode)
+    },
+    showDialog () {
+      this.$refs.dialog.show()
+    },
+    selectItem (item, index) {
+      this.$emit('select', item, index)
+    },
+    ...mapActions([
+      'setPlayMode'
+    ])
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created () {},
@@ -145,6 +179,22 @@ export default {
           box-shadow: 0 6px 32px rgba(230,120,0,.5);
           background-color: $base-orange;
           margin: 0 auto;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          .iconfont{
+            font-size: px2rem(56);
+            color: #fff;
+            display: inline-block;
+            line-height: px2rem(80);
+          }
+          .text{
+            font-size: px2rem(30);
+            color: #fff;
+            display: inline-block;
+            line-height: px2rem(80);
+            padding: 0 px2rem(20);
+          }
         }
       }
     }

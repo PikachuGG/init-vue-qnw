@@ -6,12 +6,13 @@ Vue.use(Vuex)
 
 const playMode = {
   sequence: 0,
-  loop: 1,
-  random: 2
+  random: 1,
+  loop: 2
 }
 const SET_SEQUENCE_LIST = 'SET_SEQUENCE_LIST'
 const SET_DISC = 'SET_DISC'
 const SET_SINGER = 'SET_SINGER'
+const SET_PLAY_MODE = 'SET_PLAY_MODE'
 
 export default new Vuex.Store({
   state: {
@@ -24,7 +25,8 @@ export default new Vuex.Store({
   getters: {
     sequenceList: state => state.sequenceList,
     disc: state => state.disc,
-    singer: state => state.singer
+    singer: state => state.singer,
+    mode: state => state.mode
   },
   mutations: {
     [SET_SEQUENCE_LIST] (state, list) {
@@ -35,6 +37,9 @@ export default new Vuex.Store({
     },
     [SET_SINGER] (state, singer) {
       state.singer = singer
+    },
+    [SET_PLAY_MODE] (state, mode) {
+      state.mode = mode
     }
   },
   actions: {
@@ -46,6 +51,9 @@ export default new Vuex.Store({
     },
     setSinger ({ commit, state }, singer) {
       commit(SET_SINGER, singer)
+    },
+    setPlayMode ({ commit, state }, mode) {
+      commit(SET_PLAY_MODE, mode)
     }
   },
   plugins: [createLogger()]
